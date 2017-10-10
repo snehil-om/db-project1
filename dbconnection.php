@@ -1,7 +1,10 @@
 <?php
-$db=new mysqli("0.0.0.0","root","","sample");
-if(mysqli_connect_errno()){
-echo "Connect failed";
-exit();
-}
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+$server = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$db = substr($url["path"], 1);
+
+$conn = new mysqli($server, $username, $password, $db);
 ?>

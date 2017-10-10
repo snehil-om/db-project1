@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>Add Book</title>
+      <title>Display Books</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,7 +14,7 @@
          border-radius: 0;
          }
          /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-         .row.content {height: 450px}
+         .row.content {height: 600px}
          /* Set gray background color and 100% height */
          .sidenav {
          padding-top: 20px;
@@ -41,31 +41,27 @@
       <nav class="navbar navbar-inverse">
          <div class="container-fluid">
             <div class="navbar-header">
-               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>                        
-               </button>
-               <a class="navbar-brand" href="#">Logo</a>
+      <a class="navbar-brand" href="#"><img src="images.png" alt="HTML5 Icon" width="48" height="36"></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                <ul class="nav navbar-nav">
-                  <li class="active"><a href="#">Home</a></li>
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Projects</a></li>
-                  <li><a href="#">Contact</a></li>
-               </ul>
-            </div>
-         </div>
-      </nav>
-      <div class="container-fluid text-center">
-         <div class="row content">
-            <div class="col-sm-2 sidenav">
-               <p><a href="#">Link</a></p>
-               <p><a href="#">Link</a></p>
-               <p><a href="#">Link</a></p>
-            </div>
-            <div class="col-sm-8 text-left">
+        <li><a href="addBook.php">Add Book</a></li>
+        <li><a href=searchBooks.php>Search Book</a></li>
+        <li><a href="requestBook.php">Request Book</a></li>
+        <li><a href="returnBook.php">Return Book</a></li>
+        <li><a href="addUser.php">Add User</a></li>
+        <li><a href="searchUser.php">Search User</a></li>
+      </ul>
+      
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+    </div>
+    <div class="col-sm-8 text-left">
                <h1>Display Book</h1>
                <?php
                $servername = "localhost";
@@ -80,13 +76,12 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
                $search = $_REQUEST["search"];
-               $sql = "select books.isbn,books.title,author.name, author.age from books inner join author on books.author_id = author.id where books.title like '%$search%'";
+               $sql = "select books.isbn,books.title,author.name, author.age from books inner join author on books.author_id = author.id where books.title like '%$search%' order by books.isbn asc";
                $result = $conn->query($sql);
-               echo $result->num_rows;
                if($result->num_rows > 0)
                {
                ?>
-               <table border="2" align="center" cellpadding="10" cellspacing="10">
+               <table border="2" align="center" cellpadding="25" cellspacing="25">
                   <tr>
                      <th> ISBN </th>
                      <th> Title </th>
@@ -94,14 +89,18 @@ if ($conn->connect_error) {
                   </tr>
                   <?php while($row = $result->fetch_assoc())
                      {
+                        $url = "editBooks.php?id=$row[isbn]";
+                        $url2 = "deleteBooks.php?id=$row[isbn]";
                      ?>
                   <tr>
                      <td><?php echo $row["isbn"];?> </td>
                      <td><?php echo $row["title"];?> </td>
                      <td><?php echo $row["name"];?> </td>
                      <td>
-    <button id="edit_<?php echo $id ?>">Edit</button>
-    <button id="delete_<?php echo $id ?>">Delete</button>
+                     <a href="<?php echo $url?>" class="btn btn-info" value="$row[isbn]" role="button">Edit</a>
+</td>
+<td>
+                     <a href="<?php echo $url2?>" class="btn btn-danger" value="$row[isbn]" role="button">Delete</a>
 </td>
                   </tr>
                   <?php
@@ -111,11 +110,12 @@ if ($conn->connect_error) {
                      echo "<center>No books found in the library by the name $search </center>" ;
                      ?>
                </table>
-               <hr>
-            </div>
-         </div>
-      </div>
-      </div>
+              </div>
+       <div class="col-sm-2 sidenav">
+
+    </div>
+  </div>
+</div>
       <footer class="container-fluid text-center">
          <p>Library Management System</p>
       </footer>

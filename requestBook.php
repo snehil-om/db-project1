@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Add Book</title>
+  <title>Request Book</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -15,7 +15,7 @@
     }
     
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 450px}
+    .row.content {height: 600px}
     
     /* Set gray background color and 100% height */
     .sidenav {
@@ -46,19 +46,16 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">Logo</a>
+            <a class="navbar-brand" href="#"><img src="images.png" alt="HTML5 Icon" width="48" height="36"></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Projects</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="addBook.php">Add Book</a></li>
+        <li><a href=searchBooks.php>Search Book</a></li>
+        <li class="active"><a href="requestBook.php">Request Book</a></li>
+        <li><a href="returnBook.php">Return Book</a></li>
+        <li><a href="addUser.php">Add User</a></li>
+        <li><a href="searchUser.php">Search User</a></li>
       </ul>
       
     </div>
@@ -68,12 +65,9 @@
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
     </div>
-    <div class="col-sm-8 text-left"> 
-      <h1>Search Book</h1>
+    <div class="col-sm-8 text-left">
+      <h1>Request Book</h1>
 
 <br>
 <form id="form1" name="form1" method="post" action="">
@@ -117,18 +111,30 @@ if ($conn->connect_error) {
                if($result->num_rows == 0 || $result2->num_rows == 0)
                      echo "<center>UserId or ISBN entered is incorrect </center>" ;
                 else{
+                  $sql = "select quantity from books where isbn = $isbn";
+               $result = $conn->query($sql);
+               $row = $result->fetch_assoc();
+               $q = $row[quantity]-1;
+               if($q<0){
+                 echo "Requested book not available right now!";
+               }
+              else{
+                  $sql = "update books set quantity = $q where isbn = $isbn";
+                  $result = $conn->query($sql);
                   $sql3 = "insert into user_request (user_id, isbn, from_date, to_date) values ('$userId','$isbn','$date','$date2')";
                   if ($conn->query($sql3) === TRUE) {
     echo "New Request created succesfully";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
+}
                 }
                      ?>
                </table>
 
-      <hr>
-      </div>
+</div>
+       <div class="col-sm-2 sidenav">
+
     </div>
   </div>
 </div>

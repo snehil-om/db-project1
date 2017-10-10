@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Save User</title>
+  <title>Edit Books</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -23,7 +23,6 @@
       background-color: #f1f1f1;
       height: 100%;
     }
-    
     /* Set black background color, white text and some padding */
     footer {
       background-color: #555;
@@ -45,10 +44,10 @@
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
-    <div class="navbar-header">
+    <div class="navbar-header" height = "64">
       <a class="navbar-brand" href="#"><img src="images.png" alt="HTML5 Icon" width="48" height="36"></a>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
+    <div class="collapse navbar-collapse" id="myNavbar" height = "64" padding = "25px">
       <ul class="nav navbar-nav">
         <li><a href="addBook.php">Add Book</a></li>
         <li><a href=searchBooks.php>Search Book</a></li>
@@ -67,11 +66,13 @@
     <div class="col-sm-2 sidenav">
     </div>
     <div class="col-sm-8 text-left">
-      <h1>Save User</h1>
-      <p>
-        
-<?php
-$servername = "localhost";
+
+    
+    <h1>Edit Books</h1>
+
+        <form action="saveBook.php" method="post">
+                <?php
+               $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "sample";
@@ -82,33 +83,49 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-$name=$_POST["name"];
-$phone=$_POST["phone"];
-$email=$_POST["email"];
-$city=$_POST["city"];
-$zip=$_POST["zip"];
-$state=$_POST["state"];
-$sql1 = "INSERT INTO address (city, zip, state) VALUES ('$city', '$zip', '$state')";
-if ($conn->query($sql1) === TRUE) {
-    $id = mysqli_insert_id($conn);
-$sql2 = "INSERT INTO users (address_id, name, phone, email) VALUES ('$id','$name', '$phone', '$email')";
-if ($conn->query($sql2) === TRUE) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-
-$conn->close();
-?>
-     </div>
-       <div class="col-sm-2 sidenav">
+               $id = $_GET["id"];
+               $sql = "select books.isbn, books.title, books.author_id, author.name, author.age from books inner join author on books.author_id = author.id where books.isbn = '$id'";
+               $result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            $title=$row[title];
+            
+               ?>
+<table border="2" align="center" cellpadding="5" cellspacing="5">
+<tr>
+<td> Enter Book :</td>
+<td> <input readonly="readonly" name="title" size="48" value = "<?php echo $title?>"> </td>
+</tr>
+<tr>
+<td> Enter ISBN :</td>
+<td> <input readonly="readonly" name="isbn" size="48" value = "<?php echo $row[isbn]?>"> </td>
+</tr>
+<tr>
+<td> Enter Author's Name :</td>
+<td> <input readonly="readonly" name="name" size="48" value = "<?php echo $row[name]?>"> </td>
+</tr>
+<tr>
+<td> Enter Author's Age :</td>
+<td> <input type="number" name="age" size="48" value = "<?php echo $row[age]?>"> </td>
+</tr>
+<tr>
+<td> <input type="hidden" name="id" value = "<?php echo $row[author_id]?>"> </td>
+</tr>
+<tr>
+<td></td>
+<td>
+<input type="submit" value="submit">
+<input type="reset" value="Reset">
+</td>
+</tr>
+</table>
+</form>
+    </div>
+    <div class="col-sm-2 sidenav">
 
     </div>
   </div>
 </div>
+
 <footer class="container-fluid text-center">
   <p>Library Management System</p>
 </footer>

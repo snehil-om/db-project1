@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Save User</title>
+  <title>Delete Books</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -23,7 +23,6 @@
       background-color: #f1f1f1;
       height: 100%;
     }
-    
     /* Set black background color, white text and some padding */
     footer {
       background-color: #555;
@@ -45,14 +44,15 @@
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
-    <div class="navbar-header">
+    <div class="navbar-header" height = "64">
       <a class="navbar-brand" href="#"><img src="images.png" alt="HTML5 Icon" width="48" height="36"></a>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
+    <div class="collapse navbar-collapse" id="myNavbar" height = "64" padding = "25px">
       <ul class="nav navbar-nav">
         <li><a href="addBook.php">Add Book</a></li>
         <li><a href=searchBooks.php>Search Book</a></li>
         <li><a href="requestBook.php">Request Book</a></li>
+        <li><a href="returnBook.php">Return Book</a></li>
         <li><a href="returnBook.php">Return Book</a></li>
         <li><a href="addUser.php">Add User</a></li>
         <li><a href="searchUser.php">Search User</a></li>
@@ -67,11 +67,13 @@
     <div class="col-sm-2 sidenav">
     </div>
     <div class="col-sm-8 text-left">
-      <h1>Save User</h1>
-      <p>
-        
-<?php
-$servername = "localhost";
+
+    
+    <h1>Delete Books</h1>
+
+
+                <?php
+               $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "sample";
@@ -82,33 +84,24 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-$name=$_POST["name"];
-$phone=$_POST["phone"];
-$email=$_POST["email"];
-$city=$_POST["city"];
-$zip=$_POST["zip"];
-$state=$_POST["state"];
-$sql1 = "INSERT INTO address (city, zip, state) VALUES ('$city', '$zip', '$state')";
-if ($conn->query($sql1) === TRUE) {
-    $id = mysqli_insert_id($conn);
-$sql2 = "INSERT INTO users (address_id, name, phone, email) VALUES ('$id','$name', '$phone', '$email')";
-if ($conn->query($sql2) === TRUE) {
-    echo "New record created successfully";
+               $id = $_GET["id"];
+               $sql = "delete from books where isbn = $id";
+               if ($conn->query($sql) === TRUE) {
+  echo "Requested field has been deleted successfully";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
+            
+               ?>
 
-$conn->close();
-?>
-     </div>
-       <div class="col-sm-2 sidenav">
+
+    </div>
+    <div class="col-sm-2 sidenav">
 
     </div>
   </div>
 </div>
+
 <footer class="container-fluid text-center">
   <p>Library Management System</p>
 </footer>

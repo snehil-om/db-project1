@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Save User</title>
+  <title>Edit Book</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -47,9 +47,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#"><img src="images.png" alt="HTML5 Icon" width="48" height="36"></a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
+     <ul class="nav navbar-nav">
         <li><a href="addBook.php">Add Book</a></li>
         <li><a href=searchBooks.php>Search Book</a></li>
         <li><a href="requestBook.php">Request Book</a></li>
@@ -67,7 +65,7 @@
     <div class="col-sm-2 sidenav">
     </div>
     <div class="col-sm-8 text-left">
-      <h1>Save User</h1>
+      <h1>Edit Book</h1>
       <p>
         
 <?php
@@ -81,29 +79,18 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
-$name=$_POST["name"];
-$phone=$_POST["phone"];
-$email=$_POST["email"];
-$city=$_POST["city"];
-$zip=$_POST["zip"];
-$state=$_POST["state"];
-$sql1 = "INSERT INTO address (city, zip, state) VALUES ('$city', '$zip', '$state')";
+}
+$age=$_POST["age"];
+$id=$_POST["id"];
+$sql1 = "UPDATE  author SET age=$age where id = $id";
 if ($conn->query($sql1) === TRUE) {
-    $id = mysqli_insert_id($conn);
-$sql2 = "INSERT INTO users (address_id, name, phone, email) VALUES ('$id','$name', '$phone', '$email')";
-if ($conn->query($sql2) === TRUE) {
-    echo "New record created successfully";
+  echo "Requested field has been updated successfully";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-
 $conn->close();
 ?>
-     </div>
+</div>
        <div class="col-sm-2 sidenav">
 
     </div>
