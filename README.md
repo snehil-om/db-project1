@@ -10,7 +10,8 @@ This application is built using PHP, MySQL and HTML5. It includes basic features
 •	Easy way to make a check-in
 
 To run this application, PHP, apache and mysql should be running on the linux system.
-Download the source code and copy in the /var/www/html/ folder of the server.
+Download the source code and copy all files to the /var/www/html/ folder of the server.
+Edit DB configurations in the dbconnection.php file.
 If apache is running, go to any web browser and type your system ip to run the application.
 
 The application is running at :
