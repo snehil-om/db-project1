@@ -93,7 +93,8 @@ if ($conn->query($sql1) === TRUE) {
     $id = mysqli_insert_id($conn);
 $sql2 = "INSERT INTO users (address_id, name, phone, email) VALUES ('$id','$name', '$phone', '$email')";
 if ($conn->query($sql2) === TRUE) {
-    echo "New record created successfully";
+  $id = mysqli_insert_id($conn);
+    echo "New User created successfully with userID = $id";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }

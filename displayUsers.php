@@ -76,13 +76,14 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
                $search = $_REQUEST["search"];
-               $sql = "select name, phone, email from users where name like '%$search%'";
+               $sql = "select id, name, phone, email from users where name like '%$search%'";
                $result = $conn->query($sql);
                if($result->num_rows > 0)
                {
                ?>
                <table border="2" align="center" cellpadding="10" cellspacing="10">
                   <tr>
+                     <th> ID </th>
                      <th> Name </th>
                      <th> Phone </th>
                      <th> Email </th>
@@ -91,6 +92,7 @@ if ($conn->connect_error) {
                      {
                      ?>
                   <tr>
+                     <td><?php echo $row["id"];?> </td>
                      <td><?php echo $row["name"];?> </td>
                      <td><?php echo $row["phone"];?> </td>
                      <td><?php echo $row["email"];?> </td>
