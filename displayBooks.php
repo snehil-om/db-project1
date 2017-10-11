@@ -41,46 +41,34 @@
       <nav class="navbar navbar-inverse">
          <div class="container-fluid">
             <div class="navbar-header">
-      <a class="navbar-brand" href="#"><img src="images.png" alt="HTML5 Icon" width="48" height="36"></a>
+               <a class="navbar-brand" href="index.php"><img src="images.png" alt="HTML5 Icon" width="48" height="36"></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                <ul class="nav navbar-nav">
-        <li><a href="addBook.php">Add Book</a></li>
-        <li><a href=searchBooks.php>Search Book</a></li>
-        <li><a href="requestBook.php">Request Book</a></li>
-        <li><a href="returnBook.php">Return Book</a></li>
-        <li><a href="addUser.php">Add User</a></li>
-        <li><a href="searchUser.php">Search User</a></li>
-      </ul>
-      
-    </div>
-  </div>
-</nav>
-  
-<div class="container-fluid text-center">    
-  <div class="row content">
-    <div class="col-sm-2 sidenav">
-    </div>
-    <div class="col-sm-8 text-left">
+                  <li><a href="addBook.php">Add Book</a></li>
+                  <li><a href=searchBooks.php>Search Book</a></li>
+                  <li><a href="requestBook.php">Request Book</a></li>
+                  <li><a href="returnBook.php">Return Book</a></li>
+                  <li><a href="addUser.php">Add User</a></li>
+                  <li><a href="searchUser.php">Search User</a></li>
+               </ul>
+            </div>
+         </div>
+      </nav>
+      <div class="container-fluid text-center">
+         <div class="row content">
+            <div class="col-sm-2 sidenav">
+            </div>
+            <div class="col-sm-8 text-left">
                <h1>Display Book</h1>
                <?php
-               $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "sample";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-               $search = $_REQUEST["search"];
-               $sql = "select books.isbn,books.title,author.name, author.age from books inner join author on books.author_id = author.id where books.title like '%$search%' order by books.isbn asc";
-               $result = $conn->query($sql);
-               if($result->num_rows > 0)
-               {
-               ?>
+                  include("dbconnection.php");
+                  $search = $_REQUEST["search"];
+                  $sql = "select books.isbn,books.title,author.name, author.age from books inner join author on books.author_id = author.id where books.title like '%$search%' order by books.isbn asc";
+                  $result = $conn->query($sql);
+                  if($result->num_rows > 0)
+                  {
+                  ?>
                <table border="2" align="center" cellpadding="25" cellspacing="25">
                   <tr>
                      <th> ISBN </th>
@@ -97,11 +85,11 @@ if ($conn->connect_error) {
                      <td><?php echo $row["title"];?> </td>
                      <td><?php echo $row["name"];?> </td>
                      <td>
-                     <a href="<?php echo $url?>" class="btn btn-info" value="$row[isbn]" role="button">Edit</a>
-</td>
-<td>
-                     <a href="<?php echo $url2?>" class="btn btn-danger" value="$row[isbn]" role="button">Delete</a>
-</td>
+                        <a href="<?php echo $url?>" class="btn btn-info" value="$row[isbn]" role="button">Edit</a>
+                     </td>
+                     <td>
+                        <a href="<?php echo $url2?>" class="btn btn-danger" value="$row[isbn]" role="button">Delete</a>
+                     </td>
                   </tr>
                   <?php
                      }
@@ -110,12 +98,11 @@ if ($conn->connect_error) {
                      echo "<center>No books found in the library by the name $search </center>" ;
                      ?>
                </table>
-              </div>
-       <div class="col-sm-2 sidenav">
-
-    </div>
-  </div>
-</div>
+            </div>
+            <div class="col-sm-2 sidenav">
+            </div>
+         </div>
+      </div>
       <footer class="container-fluid text-center">
          <p>Library Management System</p>
       </footer>
