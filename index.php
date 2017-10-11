@@ -66,6 +66,13 @@
     <div class="col-sm-2 sidenav">
     </div>
     <div class="col-sm-8 text-left">
+      <p>
+        <center>
+          
+      <img align="middle" src="images.png" alt="HTML5 Icon" width="264" height=264"></center>
+       <h1 align = "center">Howdy!</h1>
+       <h1 align = "center">Welcome to Library Management System</h1>
+</p>
     </div>
     
     

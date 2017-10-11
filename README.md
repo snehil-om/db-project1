@@ -1,30 +1,19 @@
 
-     ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
-    '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
-    |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
-    '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
-     `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
-    ----------------------------------------------------------------- 
+A Library Management system is a software used to handle basic housekeeping functions of a library. 
+This application is built using PHP, MySQL and HTML5. It includes basic features of Library management system like : 
+•	Keep record of different categories
+•	Easy way to enter new books.
+•	Keep record of user information
+•	Keep record of information of a book
+•	Edit / delete book information 
+•	Easy way to make a check-out.
+•	Easy way to make a check-in
 
+To run this application, PHP, apache and mysql should be running on the linux system.
+Download the source code and copy in the /var/www/html/ folder of the server.
+If apache is running, go to any web browser and type your system ip to run the application.
 
-Hi there! Welcome to Cloud9 IDE!
-
-To get you started, we have created a small hello world application.
-
-1) Open the hello-world.php file
-
-2) Follow the run instructions in the file's comments
-
-3) If you want to look at the Apache logs, check out ~/lib/apache2/log
-
-And that's all there is to it! Just have fun. Go ahead and edit the code, 
-or add new files. It's all up to you! 
-
-Happy coding!
-The Cloud9 IDE team
-
-
-## Support & Documentation
-
-Visit http://docs.c9.io for support, or to learn more about using Cloud9 IDE. 
-To watch some training videos, visit http://www.youtube.com/user/c9ide
+The application is running at :
+http://ec2-34-215-74-223.us-west-2.compute.amazonaws.com/
+and 
+http://projects.cse.tamu.edu/snehil/
